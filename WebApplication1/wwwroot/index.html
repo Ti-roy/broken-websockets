@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+<body>
+<h1>WebSocket Example</h1>
+
+<script>
+    // Replace 'your-server-domain' with the actual domain or IP address of your server
+    const socket = new WebSocket(`ws://${location.host}/ws`);
+
+    // Connection opened
+    socket.addEventListener('open', (event) => {
+        console.log('WebSocket connection opened:', event);
+
+        // Send a request after the connection is established
+        const request = {
+            type: 'example-request',
+            data: 'Hello, server!'
+        };
+
+        socket.send(JSON.stringify(request));
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', (event) => {
+        console.log('Message from server:', event.data);
+
+        // You can handle the server's response here
+    });
+
+    // Connection closed
+    socket.addEventListener('close', (event) => {
+        console.log('WebSocket connection closed:', event);
+    });
+
+    // Connection error
+    socket.addEventListener('error', (event) => {
+        console.error('WebSocket connection error:', event);
+    });
+</script>
+</body>
+</html>
